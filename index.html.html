@@ -346,15 +346,15 @@
                 const resultContainer = document.getElementById('bio-result-container');
                 resultContainer.innerHTML = '<div class="text-center p-4">Generating... <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500 mx-auto mt-2"></div></div>';
                 
-                const prompt = \`Generate a professional and engaging 'About Me' section for a web developer's portfolio. The tone should be confident but approachable. Incorporate the following keywords: \${keywords}. The response should be a single paragraph.\`;
+                const prompt = `Generate a professional and engaging 'About Me' section for a web developer's portfolio. The tone should be confident but approachable. Incorporate the following keywords: ${keywords}. The response should be a single paragraph.`;
                 const generatedBio = await callGeminiApi(prompt);
                 
-                resultContainer.innerHTML = \`
+                resultContainer.innerHTML = `
                     <div class="bg-primary p-4 rounded-lg">
-                        <p id="generated-bio-text" class="text-secondary">\${generatedBio}</p>
+                        <p id="generated-bio-text" class="text-secondary">${generatedBio}</p>
                         <button id="copy-bio-btn" class="mt-4 neon-button text-white font-semibold py-1 px-3 rounded-lg text-xs bg-gradient-to-r from-green-500 to-teal-500">Copy Text</button>
                     </div>
-                \`;
+                `;
 
                 document.getElementById('copy-bio-btn').addEventListener('click', () => {
                     const textToCopy = document.getElementById('generated-bio-text').innerText;
@@ -377,22 +377,22 @@
             modalBody.innerHTML = '<div class="text-center p-4">Getting a project idea... <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500 mx-auto mt-2"></div></div>';
             openModal();
 
-            const prompt = \`Generate a creative and impressive web development project idea for a portfolio. Provide a catchy title and a short, one-paragraph description. The project should be modern and demonstrate a good range of skills. Format the response as: **Title:** [Project Title]\\n**Description:** [Project Description]\`;
+            const prompt = `Generate a creative and impressive web development project idea for a portfolio. Provide a catchy title and a short, one-paragraph description. The project should be modern and demonstrate a good range of skills. Format the response as: **Title:** [Project Title]\\n**Description:** [Project Description]`;
             const idea = await callGeminiApi(prompt);
             
             // Simple parsing for the response
-            const titleMatch = idea.match(/\\*\\*Title:\\*\\*\\s*(.*)/);
-            const descriptionMatch = idea.match(/\\*\\*Description:\\*\\*\\s*(.*)/);
+            const titleMatch = idea.match(/\*\*Title:\*\*\s*(.*)/);
+            const descriptionMatch = idea.match(/\*\*Description:\*\*\s*(.*)/);
             
             const title = titleMatch ? titleMatch[1] : "AI-Powered Idea";
             const description = descriptionMatch ? descriptionMatch[1] : idea;
 
-            modalBody.innerHTML = \`
+            modalBody.innerHTML = `
                 <div class="bg-primary p-4 rounded-lg">
-                    <h4 class="text-xl font-bold accent-primary mb-2">\${title}</h4>
-                    <p class="text-secondary">\${description}</p>
+                    <h4 class="text-xl font-bold accent-primary mb-2">${title}</h4>
+                    <p class="text-secondary">${description}</p>
                 </div>
-            \`;
+            `;
         });
 
     </script>
