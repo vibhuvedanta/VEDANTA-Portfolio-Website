@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibhu Vedanta - Web Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for theme variables and neon effects */
+        :root {
+            /* Light Theme */
+            --bg-primary: #f3f4f6; /* gray-100 */
+            --bg-secondary: #ffffff; /* white */
+            --text-primary: #111827; /* gray-900 */
+            --text-secondary: #4b5563; /* gray-600 */
+            --accent-primary: #4f46e5; /* indigo-600 */
+            --accent-secondary: #ec4899; /* pink-500 */
+            --neon-glow-start: rgba(79, 70, 229, 0.7);
+            --neon-glow-end: rgba(236, 72, 153, 0.7);
+            --header-bg: rgba(255, 255, 255, 0.8);
+        }
+
+        html.dark {
+            /* Dark Theme */
+            --bg-primary: #111827; /* gray-900 */
+            --bg-secondary: #1f2937; /* gray-800 */
+            --text-primary: #f9fafb; /* gray-50 */
+            --text-secondary: #9ca3af; /* gray-400 */
+            --accent-primary: #818cf8; /* indigo-400 */
+            --accent-secondary: #f472b6; /* pink-400 */
+            --neon-glow-start: rgba(129, 140, 248, 0.6);
+            --neon-glow-end: rgba(244, 114, 182, 0.6);
+            --header-bg: rgba(31, 41, 55, 0.8);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Helper classes to apply variables */
+        .bg-primary { background-color: var(--bg-primary); }
+        .bg-secondary { background-color: var(--bg-secondary); }
+        .text-primary { color: var(--text-primary); }
+        .text-secondary { color: var(--text-secondary); }
+        .accent-primary { color: var(--accent-primary); }
+        .accent-secondary { color: var(--accent-secondary); }
+        .border-accent { border-color: var(--accent-primary); }
+        .header-bg { background-color: var(--header-bg); }
+
+        /* Neon Glow Effect */
+        .neon-button {
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px var(--neon-glow-start), 0 0 10px var(--neon-glow-end);
+        }
+
+        .neon-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--neon-glow-start), 0 0 30px var(--neon-glow-end), 0 0 45px var(--neon-glow-start);
+        }
+        
+        .neon-text-glow {
+            transition: text-shadow 0.3s ease;
+        }
+
+        .neon-text-glow:hover {
+            text-shadow: 0 0 8px var(--neon-glow-start), 0 0 12px var(--neon-glow-end);
+        }
+        
+        .skill-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--neon-glow-start), 0 0 30px var(--neon-glow-end);
+        }
+
+        /* Unique Header Style */
+        header {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        /* Scrollbar styles for a modern look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--accent-primary), var(--accent-secondary));
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(var(--accent-secondary), var(--accent-primary));
+        }
+        
+        /* Modal Styles */
+        .modal-backdrop {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-primary text-primary antialiased">
+
+    <!-- Header -->
+    <header class="header-bg sticky top-0 z-50 shadow-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold accent-primary neon-text-glow">VEDANTA</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="text-secondary hover:accent-primary transition duration-300 neon-text-glow">About</a>
+                <a href="#skills" class="text-secondary hover:accent-primary transition duration-300 neon-text-glow">Skills</a>
+                <a href="#projects" class="text-secondary hover:accent-primary transition duration-300 neon-text-glow">Projects</a>
+                <a href="#contact" class="text-secondary hover:accent-primary transition duration-300 neon-text-glow">Contact</a>
+            </div>
+            <div class="flex items-center">
+                 <!-- Theme Switcher -->
+                <button id="theme-toggle" class="p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                    <svg id="theme-toggle-light-icon" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                    <svg id="theme-toggle-dark-icon" class="hidden h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <!-- Hero Section -->
+        <section id="home" class="flex flex-col md:flex-row items-center justify-between min-h-[80vh]">
+            <div class="md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
+                <h1 class="text-4xl md:text-6xl font-black text-primary leading-tight mb-4">Hi, I'm Vibhu Vedanta</h1>
+                <h2 class="text-2xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-pink-500 mb-6">A Creative Web Developer</h2>
+                <p class="text-lg text-secondary mb-8">I build beautiful, responsive, and user-friendly websites and applications. Turning complex problems into elegant digital solutions.</p>
+                <a href="#contact" class="neon-button text-white font-bold py-3 px-8 rounded-full bg-gradient-to-r from-indigo-600 to-pink-600 hover:from-indigo-700 hover:to-pink-700">Get In Touch</a>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="https://placehold.co/500x500/111827/818cf8?text=AI+Avatar" onerror="this.onerror=null;this.src='https://placehold.co/500x500/e0e0e0/333?text=Image+Error';" alt="AI generated portrait of a web developer" class="rounded-full w-64 h-64 md:w-96 md:h-96 object-cover shadow-2xl border-4 border-accent">
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20">
+            <div class="flex justify-center items-center gap-4 mb-4">
+                 <h2 class="text-3xl font-bold text-center">About Me</h2>
+                 <button id="generate-bio-btn" class="neon-button text-white font-semibold py-2 px-4 rounded-lg text-sm bg-gradient-to-r from-indigo-500 to-pink-500">✨ Generate with AI</button>
+            </div>
+            <div class="w-20 h-1 bg-gradient-to-r from-indigo-500 to-pink-500 mx-auto mb-12"></div>
+            <div class="bg-secondary p-8 rounded-lg shadow-lg flex flex-col md:flex-row items-center gap-8">
+                <div class="flex-shrink-0">
+                     <img src="https://placehold.co/200x200/1f2937/f472b6?text=Profile" onerror="this.onerror=null;this.src='https://placehold.co/200x200/e0e0e0/333?text=Image+Error';" alt="Vibhu Vedanta" class="rounded-full w-32 h-32 object-cover border-4 border-pink-400">
+                </div>
+                <p id="about-me-text" class="text-secondary text-lg">
+                    I'm a passionate web developer with a knack for creating dynamic and intuitive web experiences. With a strong foundation in front-end and back-end technologies, I specialize in building robust applications from the ground up. I thrive on challenges, continuously learn new skills, and am dedicated to writing clean, efficient, and maintainable code. When I'm not coding, you can find me exploring new tech, contributing to open-source projects, or enjoying a good cup of coffee.
+                </p>
+            </div>
+        </section>
+
+        <!-- Skills & Languages Section -->
+        <section id="skills" class="py-20">
+            <h2 class="text-3xl font-bold text-center mb-4">My Tech Stack</h2>
+            <div class="w-20 h-1 bg-gradient-to-r from-indigo-500 to-pink-500 mx-auto mb-12"></div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 text-center">
+                <div class="skill-card bg-secondary p-6 rounded-lg shadow-md transition-transform duration-300"><svg class="w-16 h-16 mx-auto mb-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L1 9l11 7 11-7L12 2zm0 18.5L1 13.5V22l11-7zm0 0l11 7V13.5L12 20.5z"/></svg><h3 class="font-semibold text-lg">React</h3></div>
+                <div class="skill-card bg-secondary p-6 rounded-lg shadow-md transition-transform duration-300"><svg class="w-16 h-16 mx-auto mb-4 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm0-4v-6h2v6h-2z"/></svg><h3 class="font-semibold text-lg">Node.js</h3></div>
+                <div class="skill-card bg-secondary p-6 rounded-lg shadow-md transition-transform duration-300"><svg class="w-16 h-16 mx-auto mb-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24"><path d="M2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10S2 17.52 2 12zm10-8c-4.41 0-8 3.59-8 8s3.59 8 8 8 8-3.59 8-8-3.59-8-8-8zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg><h3 class="font-semibold text-lg">JavaScript</h3></div>
+                <div class="skill-card bg-secondary p-6 rounded-lg shadow-md transition-transform duration-300"><svg class="w-16 h-16 mx-auto mb-4 text-blue-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V8h2v4zm4 4h-2v-2h2v2zm0-4h-2V8h2v4z"/></svg><h3 class="font-semibold text-lg">TypeScript</h3></div>
+                <div class="skill-card bg-secondary p-6 rounded-lg shadow-md transition-transform duration-300"><svg class="w-16 h-16 mx-auto mb-4 text-cyan-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l-10 5v10l10 5 10-5V7l-10-5zm-8 6.62V17l8 4 8-4v-4.38l-8 4-8-4zM4.47 8.5L12 12.5l7.53-4L12 4.5 4.47 8.5z"/></svg><h3 class="font-semibold text-lg">Tailwind CSS</h3></div>
+                <div class="skill-card bg-secondary p-6 rounded-lg shadow-md transition-transform duration-300"><svg class="w-16 h-16 mx-auto mb-4 text-purple-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v8h-2v-8z"/></svg><h3 class="font-semibold text-lg">GraphQL</h3></div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20">
+            <div class="flex justify-center items-center gap-4 mb-4">
+                <h2 class="text-3xl font-bold text-center">Featured Projects</h2>
+                <button id="generate-project-btn" class="neon-button text-white font-semibold py-2 px-4 rounded-lg text-sm bg-gradient-to-r from-indigo-500 to-pink-500">✨ Suggest a Project</button>
+            </div>
+            <div class="w-20 h-1 bg-gradient-to-r from-indigo-500 to-pink-500 mx-auto mb-12"></div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Cards -->
+                <div class="bg-secondary rounded-lg shadow-lg overflow-hidden group"><img src="https://placehold.co/600x400/1f2937/ec4899?text=Project+One" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e0e0e0/333?text=Image+Error';" alt="Abstract AI art for project one" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"><div class="p-6"><h3 class="text-xl font-bold mb-2">E-Commerce Platform</h3><p class="text-secondary mb-4">A full-featured e-commerce site built with the MERN stack, featuring product search, cart functionality, and Stripe integration.</p><a href="#" class="neon-button text-white font-semibold py-2 px-4 rounded-lg text-sm bg-gradient-to-r from-indigo-500 to-pink-500">View Project</a></div></div>
+                <div class="bg-secondary rounded-lg shadow-lg overflow-hidden group"><img src="https://placehold.co/600x400/1f2937/818cf8?text=Project+Two" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e0e0e0/333?text=Image+Error';" alt="Abstract AI art for project two" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"><div class="p-6"><h3 class="text-xl font-bold mb-2">Real-Time Chat App</h3><p class="text-secondary mb-4">A responsive chat application using Socket.IO and Node.js for instant messaging, with user authentication and private rooms.</p><a href="#" class="neon-button text-white font-semibold py-2 px-4 rounded-lg text-sm bg-gradient-to-r from-indigo-500 to-pink-500">View Project</a></div></div>
+                <div class="bg-secondary rounded-lg shadow-lg overflow-hidden group"><img src="https://placehold.co/600x400/1f2937/f472b6?text=Project+Three" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e0e0e0/333?text=Image+Error';" alt="Abstract AI art for project three" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"><div class="p-6"><h3 class="text-xl font-bold mb-2">Data Visualization Dashboard</h3><p class="text-secondary mb-4">An interactive dashboard for visualizing complex datasets using D3.js and React, with dynamic charts and filters.</p><a href="#" class="neon-button text-white font-semibold py-2 px-4 rounded-lg text-sm bg-gradient-to-r from-indigo-500 to-pink-500">View Project</a></div></div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 text-center">
+             <h2 class="text-3xl font-bold text-center mb-4">Let's Connect</h2>
+            <div class="w-20 h-1 bg-gradient-to-r from-indigo-500 to-pink-500 mx-auto mb-12"></div>
+            <p class="text-secondary text-lg max-w-2xl mx-auto mb-8">I'm currently open to new opportunities and collaborations. If you have a project in mind or just want to say hello, feel free to reach out!</p>
+            <a href="mailto:your.email@example.com" class="neon-button text-white font-bold py-4 px-10 rounded-full text-lg bg-gradient-to-r from-indigo-600 to-pink-600 hover:from-indigo-700 hover:to-pink-700">Say Hello</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-secondary border-t border-gray-700">
+        <div class="container mx-auto px-6 py-6 text-center text-secondary">
+            <p>&copy; 2024 Vibhu Vedanta. All Rights Reserved.</p>
+            <p class="text-sm">Designed with <span class="accent-secondary">&hearts;</span> and coded with passion.</p>
+        </div>
+    </footer>
+    
+    <!-- AI Modal -->
+    <div id="ai-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 modal-backdrop opacity-0 pointer-events-none">
+        <div class="modal-content bg-secondary rounded-lg shadow-xl p-8 w-11/12 max-w-2xl transform scale-95">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modal-title" class="text-2xl font-bold text-primary">AI Assistant</h3>
+                <button id="modal-close-btn" class="text-secondary hover:text-primary">&times;</button>
+            </div>
+            <div id="modal-body">
+                <!-- Content will be injected here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // --- THEME TOGGLING SCRIPT ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            lightIcon.classList.add('hidden');
+            darkIcon.classList.remove('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            lightIcon.classList.remove('hidden');
+            darkIcon.classList.add('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            if (document.documentElement.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+                lightIcon.classList.add('hidden');
+                darkIcon.classList.remove('hidden');
+            } else {
+                localStorage.setItem('theme', 'light');
+                lightIcon.classList.remove('hidden');
+                darkIcon.classList.add('hidden');
+            }
+        });
+
+        // --- SMOOTH SCROLLING SCRIPT ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // --- GEMINI API INTEGRATION SCRIPT ---
+        const apiKey = ""; // API key is handled by the environment
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+        // Modal elements
+        const modal = document.getElementById('ai-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+
+        // Button Triggers
+        const generateBioBtn = document.getElementById('generate-bio-btn');
+        const generateProjectBtn = document.getElementById('generate-project-btn');
+
+        // Function to open the modal
+        const openModal = () => {
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.querySelector('.modal-content').classList.remove('scale-95');
+        };
+
+        // Function to close the modal
+        const closeModal = () => {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('.modal-content').classList.add('scale-95');
+        };
+
+        modalCloseBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // --- Generic API Call Function with Exponential Backoff ---
+        async function callGeminiApi(prompt, maxRetries = 5) {
+            let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+            const payload = { contents: chatHistory };
+            let delay = 1000; // start with 1 second
+
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    if (result.candidates && result.candidates.length > 0 && result.candidates[0].content && result.candidates[0].content.parts && result.candidates[0].content.parts.length > 0) {
+                        return result.candidates[0].content.parts[0].text;
+                    } else {
+                        throw new Error("Invalid response structure from API");
+                    }
+                } catch (error) {
+                    if (i === maxRetries - 1) {
+                         console.error("API call failed after multiple retries:", error);
+                         return "Sorry, I couldn't generate a response right now. Please try again later.";
+                    }
+                    await new Promise(res => setTimeout(res, delay));
+                    delay *= 2; // double the delay for the next retry
+                }
+            }
+        }
+
+        // --- Feature 1: AI Bio Generator ---
+        generateBioBtn.addEventListener('click', () => {
+            modalTitle.textContent = '✨ AI "About Me" Generator';
+            modalBody.innerHTML = `
+                <p class="text-secondary mb-4">Enter a few keywords (e.g., passionate, React, problem-solver) and I'll write a professional bio for you.</p>
+                <input type="text" id="bio-keywords" class="w-full p-2 rounded bg-primary border border-gray-600 text-primary mb-4" placeholder="e.g., JavaScript, creative, full-stack">
+                <button id="submit-bio-btn" class="neon-button text-white font-semibold py-2 px-4 rounded-lg text-sm bg-gradient-to-r from-indigo-500 to-pink-500">Generate Bio</button>
+                <div id="bio-result-container" class="mt-4"></div>
+            `;
+            openModal();
+
+            document.getElementById('submit-bio-btn').addEventListener('click', async () => {
+                const keywords = document.getElementById('bio-keywords').value;
+                if (!keywords) {
+                    alert('Please enter some keywords!');
+                    return;
+                }
+                const resultContainer = document.getElementById('bio-result-container');
+                resultContainer.innerHTML = '<div class="text-center p-4">Generating... <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500 mx-auto mt-2"></div></div>';
+                
+                const prompt = \`Generate a professional and engaging 'About Me' section for a web developer's portfolio. The tone should be confident but approachable. Incorporate the following keywords: \${keywords}. The response should be a single paragraph.\`;
+                const generatedBio = await callGeminiApi(prompt);
+                
+                resultContainer.innerHTML = \`
+                    <div class="bg-primary p-4 rounded-lg">
+                        <p id="generated-bio-text" class="text-secondary">\${generatedBio}</p>
+                        <button id="copy-bio-btn" class="mt-4 neon-button text-white font-semibold py-1 px-3 rounded-lg text-xs bg-gradient-to-r from-green-500 to-teal-500">Copy Text</button>
+                    </div>
+                \`;
+
+                document.getElementById('copy-bio-btn').addEventListener('click', () => {
+                    const textToCopy = document.getElementById('generated-bio-text').innerText;
+                    const tempTextArea = document.createElement('textarea');
+                    tempTextArea.value = textToCopy;
+                    document.body.appendChild(tempTextArea);
+                    tempTextArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempTextArea);
+                    const copyBtn = document.getElementById('copy-bio-btn');
+                    copyBtn.textContent = 'Copied!';
+                    setTimeout(() => { copyBtn.textContent = 'Copy Text'; }, 2000);
+                });
+            });
+        });
+
+        // --- Feature 2: AI Project Idea Generator ---
+        generateProjectBtn.addEventListener('click', async () => {
+            modalTitle.textContent = '✨ AI Project Idea Generator';
+            modalBody.innerHTML = '<div class="text-center p-4">Getting a project idea... <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500 mx-auto mt-2"></div></div>';
+            openModal();
+
+            const prompt = \`Generate a creative and impressive web development project idea for a portfolio. Provide a catchy title and a short, one-paragraph description. The project should be modern and demonstrate a good range of skills. Format the response as: **Title:** [Project Title]\\n**Description:** [Project Description]\`;
+            const idea = await callGeminiApi(prompt);
+            
+            // Simple parsing for the response
+            const titleMatch = idea.match(/\\*\\*Title:\\*\\*\\s*(.*)/);
+            const descriptionMatch = idea.match(/\\*\\*Description:\\*\\*\\s*(.*)/);
+            
+            const title = titleMatch ? titleMatch[1] : "AI-Powered Idea";
+            const description = descriptionMatch ? descriptionMatch[1] : idea;
+
+            modalBody.innerHTML = \`
+                <div class="bg-primary p-4 rounded-lg">
+                    <h4 class="text-xl font-bold accent-primary mb-2">\${title}</h4>
+                    <p class="text-secondary">\${description}</p>
+                </div>
+            \`;
+        });
+
+    </script>
+</body>
+</html>
